@@ -1,12 +1,17 @@
-import random
+from random import shuffle
 import os
 import sys
 
+# TODO: Logic behind blackjack and defining which methods and classes will be needed
+
 values = {'A': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 10, 'K': 10, 'Q': 10}
 suits = ['S', 'D', 'C', 'H']
-keys_values = list(values.keys())
-deck = [card_value + suit for card_value in keys_values for suit in suits]
-random.shuffle(deck)
+
+keys_values = list(values.keys())  # variable that defines all the values a card can have
+deck = [card_value + suit for card_value in keys_values for suit in suits]  # all the cards possible
+shuffle(deck)  # shuffling so the deck is now ready.
+
+# Now the required classes for the logic.
 
 
 class Hand(object):
@@ -49,7 +54,7 @@ class Player(object):
         '''
         Adds a card to the player's hand
         '''
-        random.shuffle(deck)
+        shuffle(deck)
         self.hand.add_card(deck[pos])
 
     def get_hand(self):
