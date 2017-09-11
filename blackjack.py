@@ -48,9 +48,6 @@ class Hand(object):
 
 class Player(object):
 
-    # Class Object Attribute that informs if  the player is standing or not
-    stand = False
-
     def __init__(self, hand=None):
         self.hand = hand if hand is not None else Hand()
 
@@ -73,26 +70,6 @@ def clear_screen():
         os.system('clear')
     elif sys.platform == "win32":
         os.system('cls')
-
-
-def check_win(p1, p2):
-    '''
-    Compare 2 player's hands and check if there's a winner.
-    INPUT: 2 Players
-    OUTPUT: Boolean
-    '''
-    # We should only call this function if both players p1 and p2 are standing.
-    # p1_value = p1.get_hand().count()
-    # p2_value = p2.get_hand().count()
-    # if p1_value > p2_value or p1_value < p2_value:
-    #     return True
-    # else:
-    #     return False
-    # For performance reasons, the above code isn't going to be used.
-    if p1.get_hand().get_value() == p2.get_hand().get_value():
-        return False
-    else:
-        return True
 
 # main function
 
@@ -140,7 +117,7 @@ def game():
             print("Do you wish to 'stand' or to 'hit'?")
             option = input()
             if option.lower() == 'stand':
-                player.stand = True
+
                 # If the player is standing, all there's left to do is deal cards to the dealer and stop when the value of the dealer's hand is greater than (or equal to, if the player's hand value is 21, resulting in a draw) the player's hand value.
                 while True:
                     dealer.hit()
