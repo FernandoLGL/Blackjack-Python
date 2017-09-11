@@ -9,13 +9,13 @@ suits = ['S', 'D', 'C', 'H']
 
 keys_values = list(values.keys())  # variable that defines all the values a card can have (list)
 deck = [card_value + suit for card_value in keys_values for suit in suits]  # all the cards possible (list)
-shuffle(deck)  # shuffling so the deck is now ready.
+# shuffle(deck)  I don't need to shuffle the deck now because everytime a player hits, it's shuffled.
 
 # Now the required classes for the logic.
 
 
 class Hand(object):
-    # Class Hand is all tested
+    # Class Hand is all tested.
     def __init__(self, cards=None, value=0):
         self.value = value
         self.cards = cards if cards is not None else []
@@ -45,7 +45,8 @@ class Hand(object):
 
 
 class Player(object):
-    #Class Object Attribute that informs if  the player is standing or not
+    # Class Player is all tested.
+    # Class Object Attribute that informs if  the player is standing or not
     stand = False
 
     def __init__(self, hand=None):
@@ -76,6 +77,7 @@ def check_win(p1, p2):
     '''
     Compare 2 player's hands and check if there's a winner.
     '''
+    # We should only call this function if both players p1 and p2 are standing.
     p1_value = p1.get_hand().count()
     p2_value = p2.get_hand().count()
     if p1_value > p2_value or p1_value < p2_value:
