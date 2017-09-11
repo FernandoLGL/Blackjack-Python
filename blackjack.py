@@ -119,7 +119,7 @@ def game():
             if option.lower() == 'stand':
 
                 # If the player is standing, all there's left to do is deal cards to the dealer and stop when the value of the dealer's hand is greater than (or equal to, if the player's hand value is 21, resulting in a draw) the player's hand value.
-                while True:
+                while dealer.get_hand().get_value() <= player.get_hand().get_value():
                     dealer.hit()
                     dealer.get_hand().count()
                     clear_screen()
@@ -129,9 +129,6 @@ def game():
                         return
                     elif dealer.get_hand().get_value() > player.get_hand().get_value():
                         print("You lost!")
-                        return
-                    elif dealer.get_hand().get_value() < player.get_hand().get_value():
-                        print("You win!")
                         return
                     elif dealer.get_hand().get_value() == player.get_hand().get_value() == 21:
                         print("It's a draw!")
