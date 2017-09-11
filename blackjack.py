@@ -7,15 +7,16 @@ import sys
 values = {'A': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 10, 'K': 10, 'Q': 10}
 suits = ['S', 'D', 'C', 'H']
 
-keys_values = list(values.keys())  # variable that defines all the values a card can have
-deck = [card_value + suit for card_value in keys_values for suit in suits]  # all the cards possible
+keys_values = list(values.keys())  # variable that defines all the values a card can have (list)
+deck = [card_value + suit for card_value in keys_values for suit in suits]  # all the cards possible (list)
 shuffle(deck)  # shuffling so the deck is now ready.
 
 # Now the required classes for the logic.
 
 
 class Hand(object):
-    def __init__(self, value=0, cards=None):
+    # Class Hand is all tested
+    def __init__(self, cards=None, value=0):
         self.value = value
         self.cards = cards if cards is not None else []
 
@@ -44,7 +45,7 @@ class Hand(object):
 
 
 class Player(object):
-
+    #Class Object Attribute that informs if  the player is standing or not
     stand = False
 
     def __init__(self, hand=None):
@@ -86,14 +87,6 @@ def check_win(p1, p2):
 
 
 def game():
-    # 2 player objects
-    dealer = Player()
-    player = Player()
-    # give 2 cards to each player
-    dealer.hit()
-    dealer.hit()
-    player.hit()
-    player.hit()
 
 
 game()
