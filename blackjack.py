@@ -2,7 +2,9 @@ from random import shuffle
 import os
 import sys
 
-
+'''
+This Blackjack project is supposed to be basic, including only 'Hit' and 'Stand'.
+'''
 values = {'A': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 10, 'K': 10, 'Q': 10}
 suits = ['S', 'D', 'C', 'H']
 
@@ -19,9 +21,9 @@ class Hand(object):
         self.value = value
         self.cards = cards if cards is not None else []
 
-    def get_value(self):
+    def count(self):
         '''
-        Counts the value of the player's hand and returns the value.
+        Counts the value of the player's hand and adds to the value
         '''
         for card in self.cards:
             if card[0] == 'A' and self.value + 11 > 21:
@@ -31,10 +33,14 @@ class Hand(object):
 
             self.value += values[card[0]]
 
-        return self.value
-
     def get_cards(self):
         return self.cards
+
+    def get_value(self):
+        return self.value
+
+    def set_value(self, newval):
+        self.value = newval
 
     def add_card(self, card):
         self.cards.append(card)
@@ -118,11 +124,54 @@ def game():
         '''
         Function to print all the information of the players.
         '''
+        player.get_hand().set_value(0)
+        dealer.get_hand().set_value(0)
+        player.get_hand().count()
+        dealer.get_hand().count()
         print("Player's cards: {c} Value: {v}\n".format(c=print_cards(player), v=player.get_hand().get_value()))
-        print("Player's cards: {c} Value: {v}\n".format(c=print_cards(dealer), v=dealer.get_hand().get_value()))
+        print("Dealer's cards: {c} Value: {v}\n".format(c=print_cards(dealer), v=dealer.get_hand().get_value()))
+    # main loop
+    while True:
 
-    clear_screen()
-    print_info()
+        clear_screen()
+        print_info()
+
+        while True:
+            print("Do you wish to 'stand' or to 'hit'?")
+            option = input()
+            if option.lower() == 'stand':
+                player.stand = True
+                # If the player is standing, all there's left to do is deal cards to the dealer and stop when the value of the dealer's hand is greater than (or equal to, if the player's hand value is 21, resulting in a draw) the player's hand value.
+                while True:
+                    dealer.hit()
+                    dealer.get_hand().count()
+                    clear_screen()
+                    print_info()
+                    if dealer.get_hand().get_value() > 21:
+                        print("The dealer bursts! You win!")
+                        return
+                    elif dealer.get_hand().get_value() > player.get_hand().get_value():
+                        print("You lost!")
+                        return
+                    elif dealer.get_hand().get_value() < player.get_hand().get_value():
+                        print("You win!")
+                        return
+                    elif dealer.get_hand().get_value() == player.get_hand().get_value() == 21:
+                        print("It's a draw!")
+                        return
+                    # The AI doesn't want a draw unless there's no choice! So it won't stop hitting unless it's a 21-to-21 draw.
+
+            elif option.lower() == 'hit':
+                player.hit()
+                player.get_hand().count()
+                clear_screen()
+                print_info()
+                if player.get_hand().get_value() > 21:
+                    print("You burst! You lose!")
+                    return
+            else:
+                clear_screen()
+                print("Please enter 'stand' or 'hit'!")
 
 
 game()
