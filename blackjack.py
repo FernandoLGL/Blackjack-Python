@@ -103,26 +103,26 @@ def game():
     dealer.hit()
     dealer.hit()
 
-    def cards_print(p):
+    def print_cards(p):
         '''
         Function to print the cards in a hand properly.
         INPUT: Player
-        OUTPUT: None
+        OUTPUT: String
         '''
         out = ''
         for elem in p.get_hand().get_cards():
             out += elem + ' '
-        print (out)
+        return out
 
-    def info_print():
+    def print_info():
         '''
         Function to print all the information of the players.
         '''
-        print("Player's cards: {c} Value: {v}\n".format(c=cards_print(player), v=player.get_hand().get_value()))
-        print("Player's cards: {c} Value: {v}\n".format(c=cards_print(dealer), v=dealer.get_hand().get_value()))
+        print("Player's cards: {c} Value: {v}\n".format(c=print_cards(player), v=player.get_hand().get_value()))
+        print("Player's cards: {c} Value: {v}\n".format(c=print_cards(dealer), v=dealer.get_hand().get_value()))
 
     clear_screen()
-    info_print()
+    print_info()
 
 
 game()
