@@ -2,7 +2,6 @@ from random import shuffle
 import os
 import sys
 
-# TODO: Logic behind blackjack and defining which methods and classes will be needed
 
 values = {'A': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 10, 'K': 10, 'Q': 10}
 suits = ['S', 'D', 'C', 'H']
@@ -73,6 +72,8 @@ def clear_screen():
 def check_win(p1, p2):
     '''
     Compare 2 player's hands and check if there's a winner.
+    INPUT: 2 Players
+    OUTPUT: Boolean
     '''
     # We should only call this function if both players p1 and p2 are standing.
     # p1_value = p1.get_hand().count()
@@ -91,6 +92,37 @@ def check_win(p1, p2):
 
 
 def game():
+
+    # Creating the two players objects
+    player = Player()
+    dealer = Player()
+
+    # Dealing the first 2 cards to each player
+    player.hit()
+    player.hit()
+    dealer.hit()
+    dealer.hit()
+
+    def cards_print(p):
+        '''
+        Function to print the cards in a hand properly.
+        INPUT: Player
+        OUTPUT: None
+        '''
+        out = ''
+        for elem in p.get_hand().get_cards():
+            out += elem + ' '
+        print (out)
+
+    def info_print():
+        '''
+        Function to print all the information of the players.
+        '''
+        print("Player's cards: {c} Value: {v}\n".format(c=cards_print(player), v=player.get_hand().get_value()))
+        print("Player's cards: {c} Value: {v}\n".format(c=cards_print(dealer), v=dealer.get_hand().get_value()))
+
+    clear_screen()
+    info_print()
 
 
 game()
