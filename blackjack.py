@@ -107,48 +107,43 @@ def game():
         dealer.get_hand().count()
         print("Player's cards: {c} Value: {v}\n".format(c=print_cards(player), v=player.get_hand().get_value()))
         print("Dealer's cards: {c} Value: {v}\n".format(c=print_cards(dealer), v=dealer.get_hand().get_value()))
+
     # main loop
     while True:
-
         clear_screen()
         print_info()
-
-        while True:
-            print("Do you wish to 'stand' or to 'hit'?")
-            option = input()
-            if option.lower() == 'stand':
-                # If the player stood while he was losing, it means the player gave up.
-                if dealer.get_hand().get_value() > player.get_hand().get_value():
-                    print("You gave up!")
-                    return
-                # If the player is standing, all there's left to do is deal cards to the dealer and stop when the value of the dealer's hand is greater than (or equal to, if the player's hand value is 21, resulting in a draw) the player's hand value.
-                while dealer.get_hand().get_value() <= player.get_hand().get_value():
-                    dealer.hit()
-                    dealer.get_hand().count()
-                    clear_screen()
-                    print_info()
-                    if dealer.get_hand().get_value() > 21:
-                        print("The dealer bursts! You win!")
-                        return
-                    elif dealer.get_hand().get_value() > player.get_hand().get_value():
-                        print("You lost!")
-                        return
-                    elif dealer.get_hand().get_value() == player.get_hand().get_value() == 21:
-                        print("It's a draw!")
-                        return
-                    # The AI doesn't want a draw unless there's no choice! So it won't stop hitting unless it's a 21-to-21 draw.
-
-            elif option.lower() == 'hit':
-                player.hit()
-                player.get_hand().count()
+        print("Do you wish to 'stand' or to 'hit'?")
+        option = input()
+        if option.lower() == 'stand':
+            # If the player stood while he was losing, it means the player gave up.
+            if dealer.get_hand().get_value() > player.get_hand().get_value():
+                print("You gave up!")
+                return
+            # If the player is standing, all there's left to do is deal cards to the dealer and stop when the value of the dealer's hand is greater than (or equal to, if the player's hand value is 21, resulting in a draw) the player's hand value.
+            while dealer.get_hand().get_value() <= player.get_hand().get_value():
+                dealer.hit()
+                dealer.get_hand().count()
                 clear_screen()
                 print_info()
-                if player.get_hand().get_value() > 21:
-                    print("You burst! You lose!")
+                if dealer.get_hand().get_value() > 21:
+                    print("The dealer bursts! You win!")
                     return
-            else:
-                clear_screen()
-                print("Please enter 'stand' or 'hit'!")
+                elif dealer.get_hand().get_value() > player.get_hand().get_value():
+                    print("You lost!")
+                    return
+                elif dealer.get_hand().get_value() == player.get_hand().get_value() == 21:
+                    print("It's a draw!")
+                    return
+                # The AI doesn't want a draw unless there's no choice! So it won't stop hitting unless it's a 21-to-21 draw.
+
+        elif option.lower() == 'hit':
+            player.hit()
+            player.get_hand().count()
+            clear_screen()
+            print_info()
+            if player.get_hand().get_value() > 21:
+                print("You burst! You lose!")
+                return
 
 
 game()
