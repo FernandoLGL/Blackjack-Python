@@ -80,10 +80,9 @@ def game():
     player = Player()
     dealer = Player()
 
-    # Dealing the first 2 cards to each player
+    # Dealing the first 2 cards the player and 1 card to the dealer
     player.hit()
     player.hit()
-    dealer.hit()
     dealer.hit()
 
     def print_cards(p):
