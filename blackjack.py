@@ -14,6 +14,8 @@ deck = [card_value + suit for card_value in keys_values for suit in suits]  # al
 
 # Now the required classes for the logic.
 
+# Hand class
+
 
 class Hand(object):
 
@@ -50,10 +52,14 @@ class Hand(object):
     def add_card(self, card):
         self.cards.append(card)
 
+# Player class
+
 
 class Player(object):
 
-    def __init__(self, hand=None):
+    def __init__(self, name='', score=0, hand=None):
+        self.name = name
+        self.score = score
         self.hand = hand if hand is not None else Hand()
 
     def hit(self, pos=0):
@@ -66,6 +72,8 @@ class Player(object):
     def get_hand(self):
         return self.hand
 
+# Clear screen function
+
 
 def clear_screen():
     '''
@@ -76,16 +84,18 @@ def clear_screen():
     elif sys.platform == "win32":
         os.system('cls')
 
-# main function
+# Main game function
 
 
 def game():
+    global name
 
-    # Creating the two players objects
-    player = Player()
+    # Creating the two Player objects
+
+    player = Player(name)
     dealer = Player()
-
     # Dealing the first 2 cards the player and 1 card to the dealer
+
     player.hit()
     player.hit()
     dealer.hit()
@@ -118,7 +128,18 @@ def game():
         if option.lower() == 'y':
             game()
         elif option.lower() == 'n':
-            return
+            clear_screen()
+            while True:
+                print("Return to the main menu?(Y)es or (N)o?")
+                option = input()
+                clear_screen()
+                if option.lower() == 'y':
+                    menu()
+                elif option.lower() == 'n':
+                    return
+                else:
+                    print("Please say a valid option.")
+                    continue
         else:
             clear_screen()
             print("Invalid, please say 'y' or 'n'")
@@ -166,4 +187,35 @@ def game():
         return
 
 
-game()
+def menu():
+
+    clear_screen()
+    print("\tWelcome to Blackjack")
+    print("\n\n1-Play\n2-View Scores\n3-Quit")
+
+    try:
+        option = int(input())
+    except:
+        print("Please type in a valid integer.")
+
+    if option == 1:
+        # Some code
+        game()
+    elif option == 2:
+        pass
+    elif option == 3:
+        return
+
+
+clear_screen()
+print("Hey, welcome to the game. What's your name?")
+while True:
+    name = input()
+    if len(name.split()) == 0:
+        clear_screen()
+        print("Nice empty name! Try again please.")
+        continue
+    break
+
+
+menu()
