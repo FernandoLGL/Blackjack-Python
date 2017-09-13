@@ -189,15 +189,24 @@ def game():
 
 def menu():
 
+    # Welcome
     clear_screen()
     print("\tWelcome to Blackjack")
     print("\n\n1-Play\n2-View Scores\n3-Quit")
 
-    try:
-        option = int(input())
-    except:
-        print("Please type in a valid integer.")
+    # Checking the option value
+    while True:
+        try:
+            option = int(input())
+        except:
+            print("Please type in a valid integer.")
+            continue
+        if option not in [1, 2, 3]:
+            print("Please say a valid option.")
+            continue
+        break
 
+    # if/elif/else chain for the option.
     if option == 1:
         # Some code
         game()
@@ -207,6 +216,7 @@ def menu():
         return
 
 
+# Beginning
 clear_screen()
 print("Hey, welcome to the game. What's your name?")
 while True:
