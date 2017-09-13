@@ -25,13 +25,18 @@ class Hand(object):
         '''
         Counts the value of the player's hand and adds to the value
         '''
+        flag = False  # If the flag value is True, then there is an 'A' card in the hand.
         for card in self.cards:
-            if card[0] == 'A' and self.value + 11 > 21:
-                values['A'] = 1
-            else:
-                values['A'] = 11
-
+            if card[0] == 'A':
+                flag = True
+                continue  # skips A, to check it later.
             self.value += values[card[0]]
+        if flag:
+            if self.value + 11 > 21:
+                values['A'] = 1
+                self.value += 1
+            else:
+                self.value += 11
 
     def get_cards(self):
         return self.cards
