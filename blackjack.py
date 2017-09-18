@@ -16,7 +16,6 @@ deck = [card_value + suit for card_value in keys_values for suit in suits]  # al
 
 # Hand class
 
-
 class Hand(object):
 
     def __init__(self, cards=None, value=0):
@@ -131,6 +130,7 @@ def game():
             print("Invalid, please say 'y' or 'n'")
             play_again()
 
+    # If the player got blackjack (First 2 cards sum is equal to 21, instant win.)
     player.get_hand().count()
     if player.get_hand().get_value() == 21:
         clear_screen()
